@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 text-center">
+            <div class="bounce-in">
+                <h1 class="display-3 mb-4 neon-text">
+                    <i class="fas fa-graduation-cap floating-icon"></i>
+                    Teacher AI Platform
+                </h1>
+                <p class="lead mb-5 text-white" style="font-size: 1.3rem;">Your intelligent learning companion powered by AI</p>
+            </div>
+            
+            <div class="row" id="feature-cards">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 glass-effect feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-comments fa-4x text-primary floating-icon"></i>
+                            </div>
+                            <h5 class="card-title">AI Chat Assistant</h5>
+                            <p class="card-text">Get instant help and explanations on any topic with our advanced AI</p>
+                            <div class="feature-stats">
+                                <small class="text-muted">
+                                    <i class="fas fa-bolt"></i> Instant Responses
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 glass-effect feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-file-pdf fa-4x text-success floating-icon"></i>
+                            </div>
+                            <h5 class="card-title">Study Material Generator</h5>
+                            <p class="card-text">Generate comprehensive PDFs with images and structured content</p>
+                            <div class="feature-stats">
+                                <small class="text-muted">
+                                    <i class="fas fa-download"></i> Instant Download
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 glass-effect feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-question-circle fa-4x text-warning floating-icon"></i>
+                            </div>
+                            <h5 class="card-title">Smart MCQ Quiz</h5>
+                            <p class="card-text">Test your knowledge with AI-generated questions and instant feedback</p>
+                            <div class="feature-stats">
+                                <small class="text-muted">
+                                    <i class="fas fa-chart-line"></i> Progress Tracking
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 glass-effect feature-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-chart-bar fa-4x text-info floating-icon"></i>
+                            </div>
+                            <h5 class="card-title">Progress Analytics</h5>
+                            <p class="card-text">Monitor your learning journey with detailed insights and statistics</p>
+                            <div class="feature-stats">
+                                <small class="text-muted">
+                                    <i class="fas fa-trophy"></i> Achievement System
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-5 slide-in-left">
+                <div class="action-buttons">
+                    <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg me-3 pulse-btn">
+                        <i class="fas fa-sign-in-alt"></i> Start Learning
+                    </a>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-user-plus"></i> Join Now
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Interactive Demo Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card glass-effect demo-section" data-aos="zoom-in">
+                        <div class="card-body">
+                            <h4 class="text-white mb-4">
+                                <i class="fas fa-play-circle"></i> See It In Action
+                            </h4>
+                            <div class="demo-chat">
+                                <div class="demo-message user-demo">
+                                    <div class="message-bubble user-bubble">
+                                        "Explain photosynthesis in simple terms"
+                                    </div>
+                                </div>
+                                <div class="demo-message ai-demo">
+                                    <div class="message-bubble ai-bubble">
+                                        <i class="fas fa-robot me-2"></i>
+                                        "Photosynthesis is like a plant's kitchen! Plants use sunlight, water, and carbon dioxide to make their own food (glucose) and release oxygen as a bonus for us to breathe! 🌱"
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="typing-indicator mt-3" id="typing-demo">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <small class="ms-2 text-muted">AI is typing...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.feature-card {
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.feature-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.pulse-btn {
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.4); }
+    50% { box-shadow: 0 0 30px rgba(102, 126, 234, 0.8); }
+    100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.4); }
+}
+
+.demo-section {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.demo-chat {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.demo-message {
+    margin-bottom: 15px;
+    animation: demoSlide 0.8s ease;
+}
+
+.user-demo {
+    text-align: right;
+}
+
+.ai-demo {
+    text-align: left;
+    animation-delay: 1s;
+}
+
+@keyframes demoSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.action-buttons a {
+    margin: 10px;
+    min-width: 180px;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Animate feature cards on scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animationDelay = entry.target.dataset.aosDelay + 'ms';
+            entry.target.classList.add('fadeInUp');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.feature-card').forEach(card => {
+    observer.observe(card);
+});
+
+// Interactive demo typing effect
+setTimeout(() => {
+    document.getElementById('typing-demo').style.display = 'none';
+}, 3000);
+
+// Add click effects to feature cards
+document.querySelectorAll('.feature-card').forEach(card => {
+    card.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 150);
+    });
+});
+
+// Parallax effect for background
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector('body');
+    const speed = scrolled * 0.5;
+    parallax.style.backgroundPosition = `center ${speed}px`;
+});
+</script>
+{% endblock %}

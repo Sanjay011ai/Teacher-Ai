@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Quiz History</h1>
+    <div class="badge bg-info fs-6">{{ history|length }} Quizzes Completed</div>
+</div>
+
+{% if history %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Questions</th>
+                                <th>Correct</th>
+                                <th>Score</th>
+                                <th>Date</th>
+                                <th>Performance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for quiz in history %}
+                            <tr>
+                                <td><strong>{{ quiz[0] }}</strong></td>
+                                <td>{{ quiz[1] }}</td>
+                                <td>{{ quiz[2] }}</td>
+                                <td>
+                                    <span class="badge {% if quiz[3] >= 80 %}bg-success{% elif quiz[3] >= 60 %}bg-warning{% else %}bg-danger{% endif %}">
+                                        {{ "%.1f"|format(quiz[3]) }}%
+                                    </span>
+                                </td>
+                                <td>{{ quiz[4][:10] }}</td>
+                                <td>
+                                    {% if quiz[3] >= 80 %}
+                                    <i class="fas fa-star text-success"></i> Excellent
+                                    {% elif quiz[3] >= 60 %}
+                                    <i class="fas fa-thumbs-up text-warning"></i> Good
+                                    {% else %}
+                                    <i class="fas fa-book text-info"></i> Needs Practice
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-primary">{{ history|length }}</h3>
+                <p>Total Quizzes</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-success">{{ "%.1f"|format(history|map(attribute=3)|sum / history|length if history else 0) }}%</h3>
+                <p>Average Score</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-info">{{ history|selectattr(3, 'ge', 80)|list|length }}</h3>
+                <p>Excellent Scores</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="text-center mt-5">
+    <i class="fas fa-history fa-4x text-muted mb-3"></i>
+    <h4>No Quiz History Yet</h4>
+    <p class="text-muted">Take your first quiz to see your progress here!</p>
+    <a href="{{ url_for('quiz') }}" class="btn btn-primary">
+        <i class="fas fa-play"></i> Take Your First Quiz
+    </a>
+</div>
+{% endif %}
+{% endblock %}

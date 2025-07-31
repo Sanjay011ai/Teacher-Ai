@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center bg-success text-white">
+                    <h3><i class="fas fa-trophy"></i> Quiz Results</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2 class="text-primary">{{ correct }}</h2>
+                            <p>Correct Answers</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h2 class="text-info">{{ total }}</h2>
+                            <p>Total Questions</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h2 class="text-success">{{ "%.1f"|format(score) }}%</h2>
+                            <p>Final Score</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        {% if score >= 80 %}
+                        <div class="alert alert-success">
+                            <i class="fas fa-star"></i> Excellent work! You've mastered this topic.
+                        </div>
+                        {% elif score >= 60 %}
+                        <div class="alert alert-warning">
+                            <i class="fas fa-thumbs-up"></i> Good job! Keep practicing to improve.
+                        </div>
+                        {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-book"></i> Keep studying! Practice makes perfect.
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="{{ url_for('quiz') }}" class="btn btn-primary me-2">
+                            <i class="fas fa-redo"></i> Take Another Quiz
+                        </a>
+                        <a href="{{ url_for('quiz_history') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-history"></i> View History
+                        </a>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button class="btn btn-success" onclick="shareResult()">
+                            <i class="fas fa-share"></i> Share Result
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function shareResult() {
+    const text = `I just scored {{ "%.1f"|format(score) }}% on a quiz! {{ correct }}/{{ total }} correct answers.`;
+    if (navigator.share) {
+        navigator.share({
+            title: 'Quiz Result',
+            text: text,
+            url: window.location.href
+        });
+    } else {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Result copied to clipboard!');
+        });
+    }
+}
+</script>
+{% endblock %}

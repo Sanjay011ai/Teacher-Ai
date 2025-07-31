@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">PDF Study Material Generator</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-file-pdf"></i> Generate Study Material</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('generate_pdf') }}">
+                    <div class="mb-3">
+                        <label for="topic" class="form-label">Topic</label>
+                        <input type="text" class="form-control" id="topic" name="topic" 
+                               placeholder="Enter the topic you want to study" required>
+                        <div class="form-text">
+                            Enter any topic and we'll generate comprehensive study material for you.
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6>What will be included:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Introduction to the topic</li>
+                            <li><i class="fas fa-check text-success"></i> Key concepts and definitions</li>
+                            <li><i class="fas fa-check text-success"></i> Practical examples</li>
+                            <li><i class="fas fa-check text-success"></i> Practice questions</li>
+                            <li><i class="fas fa-check text-success"></i> Summary and key takeaways</li>
+                        </ul>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-download"></i> Generate & Download PDF
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6><i class="fas fa-lightbulb"></i> Tips for Better Study Materials</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Good Topic Examples:</h6>
+                        <ul>
+                            <li>Python Programming Basics</li>
+                            <li>World War II History</li>
+                            <li>Photosynthesis Process</li>
+                            <li>Linear Algebra Fundamentals</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Tips:</h6>
+                        <ul>
+                            <li>Be specific with your topic</li>
+                            <li>Use clear, descriptive terms</li>
+                            <li>Avoid overly broad subjects</li>
+                            <li>Include the level (basic, intermediate, advanced)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

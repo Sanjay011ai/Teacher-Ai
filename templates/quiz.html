@@ -1,0 +1,635 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2 slide-in-left">
+        <i class="fas fa-question-circle floating-icon"></i> Smart MCQ Quiz
+    </h1>
+    <div class="quiz-stats slide-in-right">
+        <span class="badge bg-info pulse">AI Powered</span>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="quiz-hero-section mb-5">
+            <div class="card glass-effect quiz-hero-card bounce-in">
+                <div class="card-body text-center">
+                    <div class="quiz-hero-icon mb-4">
+                        <i class="fas fa-brain fa-5x text-primary floating-icon"></i>
+                    </div>
+                    <h2 class="neon-text mb-3">Test Your Knowledge</h2>
+                    <p class="lead text-white mb-4">Challenge yourself with AI-generated questions tailored to your learning needs</p>
+                    
+                    <div class="quiz-features row text-center mb-4">
+                        <div class="col-md-3 mb-3">
+                            <div class="feature-stat">
+                                <i class="fas fa-robot fa-2x text-success mb-2"></i>
+                                <h6>AI Generated</h6>
+                                <small>Smart Questions</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="feature-stat">
+                                <i class="fas fa-clock fa-2x text-warning mb-2"></i>
+                                <h6>Instant Results</h6>
+                                <small>Real-time Scoring</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="feature-stat">
+                                <i class="fas fa-chart-line fa-2x text-info mb-2"></i>
+                                <h6>Progress Tracking</h6>
+                                <small>Performance Analytics</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="feature-stat">
+                                <i class="fas fa-share fa-2x text-primary mb-2"></i>
+                                <h6>Share Results</h6>
+                                <small>Social Integration</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card glass-effect quiz-form-card slide-in-up">
+            <div class="card-header">
+                <h5>
+                    <i class="fas fa-play-circle me-2"></i>Start Your Quiz Journey
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('start_quiz') }}" id="quizForm">
+                    <div class="mb-4">
+                        <label for="topic" class="form-label">
+                            <i class="fas fa-lightbulb me-2"></i>Choose Your Topic
+                        </label>
+                        <div class="topic-input-container">
+                            <input type="text" class="form-control topic-input" id="topic" name="topic" 
+                                   placeholder="Enter your quiz topic (e.g., Python Programming, World History, Biology)" 
+                                   required autocomplete="off">
+                            <div class="topic-suggestions" id="topicSuggestions">
+                                <div class="suggestion-item" data-topic="Python Programming">
+                                    <i class="fab fa-python"></i> Python Programming
+                                </div>
+                                <div class="suggestion-item" data-topic="World History">
+                                    <i class="fas fa-globe"></i> World History
+                                </div>
+                                <div class="suggestion-item" data-topic="Mathematics">
+                                    <i class="fas fa-calculator"></i> Mathematics
+                                </div>
+                                <div class="suggestion-item" data-topic="Science">
+                                    <i class="fas fa-flask"></i> Science
+                                </div>
+                                <div class="suggestion-item" data-topic="Literature">
+                                    <i class="fas fa-book"></i> Literature
+                                </div>
+                                <div class="suggestion-item" data-topic="Physics">
+                                    <i class="fas fa-atom"></i> Physics
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-text">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Be specific for better question quality. AI will generate 3-5 questions based on your topic.
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-difficulty mb-4">
+                        <label class="form-label">
+                            <i class="fas fa-layer-group me-2"></i>Difficulty Level
+                        </label>
+                        <div class="difficulty-options">
+                            <div class="difficulty-option" data-level="beginner">
+                                <input type="radio" name="difficulty" value="beginner" id="beginner" checked>
+                                <label for="beginner">
+                                    <i class="fas fa-seedling"></i>
+                                    <span>Beginner</span>
+                                    <small>Basic concepts</small>
+                                </label>
+                            </div>
+                            <div class="difficulty-option" data-level="intermediate">
+                                <input type="radio" name="difficulty" value="intermediate" id="intermediate">
+                                <label for="intermediate">
+                                    <i class="fas fa-tree"></i>
+                                    <span>Intermediate</span>
+                                    <small>Applied knowledge</small>
+                                </label>
+                            </div>
+                            <div class="difficulty-option" data-level="advanced">
+                                <input type="radio" name="difficulty" value="advanced" id="advanced">
+                                <label for="advanced">
+                                    <i class="fas fa-mountain"></i>
+                                    <span>Advanced</span>
+                                    <small>Expert level</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-preview mb-4">
+                        <h6><i class="fas fa-eye me-2"></i>What to Expect:</h6>
+                        <div class="preview-items">
+                            <div class="preview-item">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>3-5 carefully crafted questions</span>
+                            </div>
+                            <div class="preview-item">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>Multiple choice format with 4 options</span>
+                            </div>
+                            <div class="preview-item">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>Instant feedback and explanations</span>
+                            </div>
+                            <div class="preview-item">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>Detailed performance analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg w-100 quiz-start-btn">
+                        <i class="fas fa-rocket me-2"></i>
+                        <span class="btn-text">Launch Quiz</span>
+                        <div class="btn-loading" style="display: none;">
+                            <div class="loading"></div>
+                            <span>Generating Questions...</span>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card glass-effect tips-card slide-in-left">
+                    <div class="card-header">
+                        <h6><i class="fas fa-lightbulb me-2"></i>Quiz Tips</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="tip-list">
+                            <div class="tip-item-quiz">
+                                <i class="fas fa-target text-primary"></i>
+                                <div>
+                                    <strong>Be Specific:</strong>
+                                    <p>Instead of "Math", try "Linear Algebra" or "Calculus Derivatives"</p>
+                                </div>
+                            </div>
+                            <div class="tip-item-quiz">
+                                <i class="fas fa-clock text-warning"></i>
+                                <div>
+                                    <strong>Take Your Time:</strong>
+                                    <p>Read each question carefully before selecting your answer</p>
+                                </div>
+                            </div>
+                            <div class="tip-item-quiz">
+                                <i class="fas fa-redo text-success"></i>
+                                <div>
+                                    <strong>Practice Regularly:</strong>
+                                    <p>Regular quizzing helps reinforce your learning</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card glass-effect popular-topics-card slide-in-right">
+                    <div class="card-header">
+                        <h6><i class="fas fa-fire me-2"></i>Popular Topics</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="popular-topics">
+                            <div class="topic-tag" data-topic="JavaScript Fundamentals">
+                                <i class="fab fa-js-square"></i> JavaScript Fundamentals
+                            </div>
+                            <div class="topic-tag" data-topic="Machine Learning Basics">
+                                <i class="fas fa-robot"></i> Machine Learning
+                            </div>
+                            <div class="topic-tag" data-topic="World War II">
+                                <i class="fas fa-globe-americas"></i> World War II
+                            </div>
+                            <div class="topic-tag" data-topic="Human Anatomy">
+                                <i class="fas fa-user-md"></i> Human Anatomy
+                            </div>
+                            <div class="topic-tag" data-topic="Climate Change">
+                                <i class="fas fa-leaf"></i> Climate Change
+                            </div>
+                            <div class="topic-tag" data-topic="Quantum Physics">
+                                <i class="fas fa-atom"></i> Quantum Physics
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.quiz-hero-card {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.quiz-hero-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+.feature-stat {
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.feature-stat:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.topic-input-container {
+    position: relative;
+}
+
+.topic-input {
+    border-radius: 15px;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.topic-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);
+    background: white;
+    transform: scale(1.02);
+}
+
+.topic-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.topic-input:focus + .topic-suggestions,
+.topic-suggestions:hover {
+    max-height: 300px;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.suggestion-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.suggestion-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateX(10px);
+}
+
+.suggestion-item i {
+    margin-right: 10px;
+    width: 20px;
+    color: #667eea;
+}
+
+.difficulty-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.difficulty-option {
+    flex: 1;
+    min-width: 150px;
+}
+
+.difficulty-option input[type="radio"] {
+    display: none;
+}
+
+.difficulty-option label {
+    display: block;
+    padding: 20px;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.difficulty-option label:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateY(-3px);
+}
+
+.difficulty-option input[type="radio"]:checked + label {
+    border-color: #667eea;
+    background: var(--primary-gradient);
+    color: white;
+    transform: scale(1.05);
+}
+
+.difficulty-option label i {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.difficulty-option label span {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.difficulty-option label small {
+    opacity: 0.8;
+}
+
+.preview-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.preview-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.preview-item:hover {
+    background: rgba(40, 167, 69, 0.2);
+    transform: translateX(5px);
+}
+
+.preview-item i {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.quiz-start-btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: var(--primary-gradient);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.quiz-start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.quiz-start-btn:active {
+    transform: translateY(-1px);
+}
+
+.btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tip-item-quiz {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.tip-item-quiz:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.tip-item-quiz i {
+    margin-right: 15px;
+    margin-top: 5px;
+    font-size: 1.2rem;
+}
+
+.tip-item-quiz div {
+    flex: 1;
+}
+
+.tip-item-quiz strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.tip-item-quiz p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.popular-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.topic-tag {
+    padding: 8px 15px;
+    background: rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.topic-tag:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+.topic-tag i {
+    margin-right: 5px;
+}
+
+.slide-in-up {
+    animation: slideInUp 0.8s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Topic suggestions functionality
+document.getElementById('topic').addEventListener('input', function() {
+    const suggestions = document.getElementById('topicSuggestions');
+    if (this.value.length > 0) {
+        suggestions.style.maxHeight = '300px';
+    } else {
+        suggestions.style.maxHeight = '0';
+    }
+});
+
+// Suggestion item clicks
+document.querySelectorAll('.suggestion-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const topic = this.dataset.topic;
+        document.getElementById('topic').value = topic;
+        document.getElementById('topicSuggestions').style.maxHeight = '0';
+        
+        // Add selection animation
+        this.style.background = 'rgba(102, 126, 234, 0.3)';
+        setTimeout(() => {
+            this.style.background = '';
+        }, 300);
+    });
+});
+
+// Popular topic tags
+document.querySelectorAll('.topic-tag').forEach(tag => {
+    tag.addEventListener('click', function() {
+        const topic = this.dataset.topic;
+        document.getElementById('topic').value = topic;
+        
+        // Add click animation
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 150);
+        
+        // Scroll to form
+        document.getElementById('quizForm').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+        });
+    });
+});
+
+// Form submission with loading animation
+document.getElementById('quizForm').addEventListener('submit', function(e) {
+    const btn = document.querySelector('.quiz-start-btn');
+    const btnText = btn.querySelector('.btn-text');
+    const btnLoading = btn.querySelector('.btn-loading');
+    
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'flex';
+    btn.disabled = true;
+    
+    // Add some delay to show the loading animation
+    setTimeout(() => {
+        // Form will submit naturally
+    }, 1000);
+});
+
+// Difficulty option animations
+document.querySelectorAll('.difficulty-option label').forEach(label => {
+    label.addEventListener('click', function() {
+        // Remove active class from all options
+        document.querySelectorAll('.difficulty-option label').forEach(l => {
+            l.classList.remove('selected');
+        });
+        
+        // Add active class to clicked option
+        this.classList.add('selected');
+        
+        // Add ripple effect
+        const ripple = document.createElement('div');
+        ripple.className = 'ripple-effect';
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+});
+
+// Feature stats hover effects
+document.querySelectorAll('.feature-stat').forEach(stat => {
+    stat.addEventListener('mouseenter', function() {
+        const icon = this.querySelector('i');
+        icon.style.transform = 'scale(1.2) rotate(10deg)';
+    });
+    
+    stat.addEventListener('mouseleave', function() {
+        const icon = this.querySelector('i');
+        icon.style.transform = 'scale(1) rotate(0deg)';
+    });
+});
+
+// Close suggestions when clicking outside
+document.addEventListener('click', function(e) {
+    const topicInput = document.getElementById('topic');
+    const suggestions = document.getElementById('topicSuggestions');
+    
+    if (!topicInput.contains(e.target) && !suggestions.contains(e.target)) {
+        suggestions.style.maxHeight = '0';
+    }
+});
+
+// Add entrance animations on scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    observer.observe(el);
+});
+</script>
+{% endblock %}

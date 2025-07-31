@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card glass-effect">
+                <div class="card-header text-center">
+                    <h3 class="neon-text">
+                        <i class="fas fa-graduation-cap floating-icon"></i> Welcome to Teacher AI
+                    </h3>
+                    <p class="text-white mb-0">Choose your role to get started</p>
+                </div>
+                <div class="card-body">
+                    <form method="POST" id="roleForm">
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="role-card" data-role="student">
+                                    <input type="radio" name="role" value="student" id="student" required>
+                                    <label for="student" class="role-label">
+                                        <div class="role-icon">
+                                            <i class="fas fa-user-graduate fa-4x"></i>
+                                        </div>
+                                        <h5>Student</h5>
+                                        <p>Learn with AI assistance, take quizzes, and generate study materials</p>
+                                        <div class="role-features">
+                                            <small><i class="fas fa-check"></i> AI Chat Assistant</small>
+                                            <small><i class="fas fa-check"></i> Quiz System</small>
+                                            <small><i class="fas fa-check"></i> PDF Generator</small>
+                                            <small><i class="fas fa-check"></i> Progress Tracking</small>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-4">
+                                <div class="role-card" data-role="teacher">
+                                    <input type="radio" name="role" value="teacher" id="teacher" required>
+                                    <label for="teacher" class="role-label">
+                                        <div class="role-icon">
+                                            <i class="fas fa-chalkboard-teacher fa-4x"></i>
+                                        </div>
+                                        <h5>Teacher</h5>
+                                        <p>Create content, manage students, and access advanced features</p>
+                                        <div class="role-features">
+                                            <small><i class="fas fa-check"></i> All Student Features</small>
+                                            <small><i class="fas fa-check"></i> Content Creation</small>
+                                            <small><i class="fas fa-check"></i> Analytics Dashboard</small>
+                                            <small><i class="fas fa-check"></i> Advanced Tools</small>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-4">
+                                <div class="role-card" data-role="admin">
+                                    <input type="radio" name="role" value="admin" id="admin" required>
+                                    <label for="admin" class="role-label">
+                                        <div class="role-icon">
+                                            <i class="fas fa-user-shield fa-4x"></i>
+                                        </div>
+                                        <h5>Administrator</h5>
+                                        <p>Full system access, user management, and platform administration</p>
+                                        <div class="role-features">
+                                            <small><i class="fas fa-check"></i> All Features</small>
+                                            <small><i class="fas fa-check"></i> User Management</small>
+                                            <small><i class="fas fa-check"></i> System Analytics</small>
+                                            <small><i class="fas fa-check"></i> Platform Settings</small>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg enter-btn" disabled>
+                                <i class="fas fa-arrow-right me-2"></i>
+                                <span class="btn-text">Enter Platform</span>
+                                <div class="btn-loading" style="display: none;">
+                                    <div class="loading me-2"></div>
+                                    <span>Loading...</span>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <div class="quick-access mt-4">
+                            <h6 class="text-center text-white mb-3">
+                                <i class="fas fa-bolt me-2"></i>Quick Access
+                            </h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-outline-light btn-sm w-100 quick-btn" data-role="student">
+                                        <i class="fas fa-user-graduate me-2"></i>Student Mode
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-outline-light btn-sm w-100 quick-btn" data-role="teacher">
+                                        <i class="fas fa-chalkboard-teacher me-2"></i>Teacher Mode
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-outline-light btn-sm w-100 quick-btn" data-role="admin">
+                                        <i class="fas fa-user-shield me-2"></i>Admin Mode
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.role-card {
+    height: 100%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.role-card input[type="radio"] {
+    display: none;
+}
+
+.role-label {
+    display: block;
+    height: 100%;
+    padding: 30px 20px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.role-label:hover {
+    border-color: rgba(102, 126, 234, 0.6);
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+}
+
+.role-card input[type="radio"]:checked + .role-label {
+    border-color: #667eea;
+    background: var(--primary-gradient);
+    color: white;
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+}
+
+.role-icon {
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.role-card:hover .role-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.role-card input[type="radio"]:checked + .role-label .role-icon {
+    transform: scale(1.2) rotate(10deg);
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: scale(1.2) translateY(0); }
+    40% { transform: scale(1.3) translateY(-10px); }
+    60% { transform: scale(1.25) translateY(-5px); }
+}
+
+.role-features {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.role-features small {
+    display: block;
+    margin-bottom: 5px;
+    opacity: 0.9;
+}
+
+.role-features i {
+    color: #28a745;
+    margin-right: 8px;
+    width: 12px;
+}
+
+.enter-btn {
+    min-width: 200px;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.enter-btn:not(:disabled):hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.enter-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quick-access {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.quick-btn {
+    border-radius: 25px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.quick-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .role-label {
+        padding: 20px 15px;
+    }
+    
+    .role-icon i {
+        font-size: 2.5rem !important;
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Handle role selection
+document.querySelectorAll('input[name="role"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const enterBtn = document.querySelector('.enter-btn');
+        enterBtn.disabled = false;
+        
+        // Add selection animation
+        const card = this.closest('.role-card');
+        card.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            card.style.transform = '';
+        }, 150);
+    });
+});
+
+// Quick access buttons
+document.querySelectorAll('.quick-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const role = this.dataset.role;
+        const radio = document.getElementById(role);
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change'));
+        
+        // Auto-submit after selection
+        setTimeout(() => {
+            document.getElementById('roleForm').submit();
+        }, 500);
+    });
+});
+
+// Form submission
+document.getElementById('roleForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const selectedRole = document.querySelector('input[name="role"]:checked');
+    if (!selectedRole) {
+        alert('Please select a role to continue');
+        return;
+    }
+    
+    const submitBtn = document.querySelector('.enter-btn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    
+    // Show loading state
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'flex';
+    submitBtn.disabled = true;
+    
+    // Submit form after animation
+    setTimeout(() => {
+        this.submit();
+    }, 1000);
+});
+
+// Add hover effects to role cards
+document.querySelectorAll('.role-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        if (!this.querySelector('input').checked) {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        }
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        if (!this.querySelector('input').checked) {
+            this.style.transform = '';
+        }
+    });
+    
+    card.addEventListener('click', function() {
+        const radio = this.querySelector('input[type="radio"]');
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change'));
+    });
+});
+
+// Add entrance animations
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.role-card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(50px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'all 0.6s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 200);
+    });
+});
+</script>
+{% endblock %}

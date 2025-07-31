@@ -1,0 +1,508 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2 slide-in-left">
+        <i class="fas fa-tachometer-alt floating-icon"></i> Dashboard
+    </h1>
+    <div class="slide-in-right">
+        <span class="badge bg-success pulse">Welcome back!</span>
+    </div>
+</div>
+
+<div class="row" id="dashboard-cards">
+    <div class="col-md-3 mb-4">
+        <div class="card text-white stat-card" style="background: var(--primary-gradient);" data-aos="zoom-in" data-aos-delay="100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">
+                            <i class="fas fa-comments me-2"></i>AI Chat
+                        </h5>
+                        <p class="card-text">Start intelligent conversations</p>
+                        <div class="feature-stats">
+                            <div class="stat-number" data-target="24">0</div>
+                            <small>Hours Available</small>
+                        </div>
+                    </div>
+                    <div class="feature-icon">
+                        <i class="fas fa-comments fa-3x floating-icon"></i>
+                    </div>
+                </div>
+                <a href="{{ url_for('chat') }}" class="btn btn-light btn-sm mt-3 dashboard-btn">
+                    <i class="fas fa-arrow-right"></i> Start Chatting
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-white stat-card" style="background: var(--success-gradient);" data-aos="zoom-in" data-aos-delay="200">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">
+                            <i class="fas fa-file-pdf me-2"></i>PDF Generator
+                        </h5>
+                        <p class="card-text">Create study materials instantly</p>
+                        <div class="feature-stats">
+                            <div class="stat-number" data-target="100">0</div>
+                            <small>Topics Available</small>
+                        </div>
+                    </div>
+                    <div class="feature-icon">
+                        <i class="fas fa-file-pdf fa-3x floating-icon"></i>
+                    </div>
+                </div>
+                <a href="{{ url_for('pdf_generator') }}" class="btn btn-light btn-sm mt-3 dashboard-btn">
+                    <i class="fas fa-download"></i> Generate PDF
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-white stat-card" style="background: var(--warning-gradient);" data-aos="zoom-in" data-aos-delay="300">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">
+                            <i class="fas fa-question-circle me-2"></i>MCQ Quiz
+                        </h5>
+                        <p class="card-text">Test your knowledge</p>
+                        <div class="feature-stats">
+                            <div class="stat-number" data-target="50">0</div>
+                            <small>Quiz Categories</small>
+                        </div>
+                    </div>
+                    <div class="feature-icon">
+                        <i class="fas fa-question-circle fa-3x floating-icon"></i>
+                    </div>
+                </div>
+                <a href="{{ url_for('quiz') }}" class="btn btn-light btn-sm mt-3 dashboard-btn">
+                    <i class="fas fa-play"></i> Take Quiz
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-white stat-card" style="background: var(--info-gradient);" data-aos="zoom-in" data-aos-delay="400">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">
+                            <i class="fas fa-history me-2"></i>Progress
+                        </h5>
+                        <p class="card-text">Track your learning journey</p>
+                        <div class="feature-stats">
+                            <div class="stat-number" data-target="85">0</div>
+                            <small>% Improvement</small>
+                        </div>
+                    </div>
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line fa-3x floating-icon"></i>
+                    </div>
+                </div>
+                <a href="{{ url_for('quiz_history') }}" class="btn btn-light btn-sm mt-3 dashboard-btn">
+                    <i class="fas fa-eye"></i> View Progress
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card glass-effect slide-in-left">
+            <div class="card-header">
+                <h5>
+                    <i class="fas fa-rocket me-2"></i>Quick Start Guide
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="quick-start-steps">
+                    <div class="step-item" data-step="1">
+                        <div class="step-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="step-content">
+                            <h6>Start with AI Chat</h6>
+                            <p>Ask questions and get instant, intelligent responses on any topic</p>
+                            <div class="step-progress">
+                                <div class="progress-bar" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item" data-step="2">
+                        <div class="step-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="step-content">
+                            <h6>Generate Study Materials</h6>
+                            <p>Create comprehensive PDFs with structured content and examples</p>
+                            <div class="step-progress">
+                                <div class="progress-bar" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item" data-step="3">
+                        <div class="step-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="step-content">
+                            <h6>Take Practice Quizzes</h6>
+                            <p>Test your understanding with AI-generated questions</p>
+                            <div class="step-progress">
+                                <div class="progress-bar" style="width: 50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item" data-step="4">
+                        <div class="step-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="step-content">
+                            <h6>Track Your Progress</h6>
+                            <p>Monitor your learning journey and celebrate achievements</p>
+                            <div class="step-progress">
+                                <div class="progress-bar" style="width: 25%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card glass-effect slide-in-right">
+            <div class="card-header">
+                <h5>
+                    <i class="fas fa-lightbulb me-2"></i>Learning Tips
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="tips-container">
+                    <div class="tip-item active" data-tip="1">
+                        <div class="tip-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h6>Ask Specific Questions</h6>
+                            <p>The more specific your questions, the better the AI can help you understand complex topics.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item" data-tip="2">
+                        <div class="tip-icon">
+                            <i class="fas fa-repeat"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h6>Practice Regularly</h6>
+                            <p>Take quizzes frequently to reinforce your learning and identify areas for improvement.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item" data-tip="3">
+                        <div class="tip-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h6>Save Important Chats</h6>
+                            <p>Your chat history is automatically saved, so you can always refer back to important explanations.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip-navigation mt-3">
+                    <button class="btn btn-sm btn-outline-primary" onclick="previousTip()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="tip-counter mx-3">1 / 3</span>
+                    <button class="btn btn-sm btn-outline-primary" onclick="nextTip()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card glass-effect mt-4 achievement-card">
+            <div class="card-body text-center">
+                <div class="achievement-icon mb-3">
+                    <i class="fas fa-trophy fa-3x text-warning floating-icon"></i>
+                </div>
+                <h6>Achievement Unlocked!</h6>
+                <p class="small text-muted">Welcome to Teacher AI Platform</p>
+                <div class="achievement-progress">
+                    <div class="progress mb-2">
+                        <div class="progress-bar bg-warning" style="width: 10%"></div>
+                    </div>
+                    <small>10% Complete - Keep exploring!</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.dashboard-btn {
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.dashboard-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+    margin: 10px 0;
+}
+
+.feature-stats {
+    margin-top: 15px;
+}
+
+.quick-start-steps {
+    padding: 20px 0;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.step-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateX(10px);
+}
+
+.step-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 15px;
+    font-size: 1.2rem;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.step-progress .progress-bar {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+    transition: width 1s ease;
+}
+
+.tips-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.tip-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease;
+    display: flex;
+    align-items: flex-start;
+}
+
+.tip-item.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.tip-item.prev {
+    transform: translateX(-100%);
+}
+
+.tip-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--info-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.tip-content h6 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.tip-navigation {
+    text-align: center;
+}
+
+.achievement-card {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.achievement-progress .progress {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 193, 7, 0.2);
+}
+
+@keyframes countUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.counting {
+    animation: countUp 0.5s ease;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Animated counter for statistics
+function animateCounter(element, target) {
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        element.textContent = Math.floor(current);
+        element.classList.add('counting');
+    }, 30);
+}
+
+// Initialize counters when cards are visible
+const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px'
+};
+
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statNumber = entry.target.querySelector('.stat-number');
+            if (statNumber && !statNumber.classList.contains('animated')) {
+                const target = parseInt(statNumber.dataset.target);
+                animateCounter(statNumber, target);
+                statNumber.classList.add('animated');
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.stat-card').forEach(card => {
+    counterObserver.observe(card);
+});
+
+// Tips carousel functionality
+let currentTip = 1;
+const totalTips = 3;
+
+function showTip(tipNumber) {
+    document.querySelectorAll('.tip-item').forEach((tip, index) => {
+        tip.classList.remove('active', 'prev');
+        if (index + 1 === tipNumber) {
+            tip.classList.add('active');
+        } else if (index + 1 < tipNumber) {
+            tip.classList.add('prev');
+        }
+    });
+    
+    document.querySelector('.tip-counter').textContent = `${tipNumber} / ${totalTips}`;
+}
+
+function nextTip() {
+    currentTip = currentTip >= totalTips ? 1 : currentTip + 1;
+    showTip(currentTip);
+}
+
+function previousTip() {
+    currentTip = currentTip <= 1 ? totalTips : currentTip - 1;
+    showTip(currentTip);
+}
+
+// Auto-rotate tips
+setInterval(nextTip, 5000);
+
+// Step item interactions
+document.querySelectorAll('.step-item').forEach((step, index) => {
+    step.addEventListener('click', function() {
+        // Add click animation
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 150);
+        
+        // Animate progress bar
+        const progressBar = this.querySelector('.progress-bar');
+        const currentWidth = parseInt(progressBar.style.width);
+        const newWidth = Math.min(currentWidth + 10, 100);
+        progressBar.style.width = newWidth + '%';
+    });
+});
+
+// Dashboard card hover effects
+document.querySelectorAll('.stat-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        const icon = this.querySelector('.floating-icon');
+        icon.style.transform = 'scale(1.2) rotate(10deg)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        const icon = this.querySelector('.floating-icon');
+        icon.style.transform = 'scale(1) rotate(0deg)';
+    });
+});
+
+// Add entrance animations
+setTimeout(() => {
+    document.querySelectorAll('[data-aos]').forEach((element, index) => {
+        setTimeout(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0) scale(1)';
+        }, index * 100);
+    });
+}, 100);
+</script>
+{% endblock %}
